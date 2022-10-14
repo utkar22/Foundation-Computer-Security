@@ -191,7 +191,7 @@ def bob_sends_message(m, k):
     Input: the message m (a byte string), the shared key k (byte string)
     Return: encrypted ciphertext
     '''
-    cipher = Salsa20.new(key = k[:16])
+    cipher = Salsa20.new(key = k)
     msg = cipher.nonce + cipher.encrypt(m)
     return msg
 
@@ -203,10 +203,10 @@ def alice_decrypts_message(c_, k):
     Return: plaintext message
     '''
     msg_nonce = c_[:8]
-    cipher_text = c[8:]
-    text = gmpy2.to_binary(cipher_text)
-    cipher = Salsa20.new(key = k[:16], nonce = msg_nonce)
-    decrypted = cipher.decrypt(text)
+    cipher_text = c_[8:]
+    #text = bytes(cipher_text, 'utf-8')
+    cipher = Salsa20.new(key = k, nonce = msg_nonce)
+    decrypted = cipher.decrypt(cipher_text)
 
     #for i in decrypted:
     #    print(i)
@@ -241,8 +241,10 @@ if __name__=="__main__":
     #k = int(k)
     #k = k.to_bytes(2,byteorder='big')
     k = gmpy2.to_binary(k)
+    k = k[:16]
 
     m = bytes(plaintext, 'utf-8')
+    
 
     c_ = bob_sends_message(m, k)
     print(f"Encrypted ciphertext: {c}")
