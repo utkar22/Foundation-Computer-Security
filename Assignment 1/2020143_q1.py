@@ -171,8 +171,11 @@ def alice_sends_symmetric_key(k, e, n):
     Input: the symmetric key k, Bob's public key e, n.
     Return: encrypted ciphertext
     '''
+    #Assumption: Ciphertext is in bytes
     k = int.from_bytes(k, "big")
-    return gmpy2.powmod(k,e,n)
+    c = gmpy2.powmod(k,e,n)
+    c = gmpy2.to_binary(c)
+    return c
 
 
 def bob_decrypts_symmetric_key(c, d, n):
@@ -183,6 +186,7 @@ def bob_decrypts_symmetric_key(c, d, n):
     Input: the ciphertext c, Bob's private key d, n.
     Return: the symmetric key (byte string)
     '''
+    #Assumption: Ciphertext is in bytes
     c = int.from_bytes(c, "big")
     k = gmpy2.powmod(c,d,n)
     k = gmpy2.to_binary(k)
@@ -238,8 +242,6 @@ if __name__=="__main__":
 
     c = alice_sends_symmetric_key(k, e, n)
     print(f"Encrypted symmetric key: {c}")
-
-    c = gmpy2.to_binary(c)
 
     k = bob_decrypts_symmetric_key(c, d, n)
     print(f"Decrypted symmetric key: {k}")
