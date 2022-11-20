@@ -8,16 +8,16 @@ import "https://github.com/0xcert/ethereum-erc721/src/contracts/tokens/nf-token-
 import "https://github.com/0xcert/ethereum-erc721/src/contracts/ownership/ownable.sol";
 
 
-// I create a new Smart Contract called ourNFT. This extends the Contracts NFTokenMetadata and
+// I create a new Smart Contract called ourNFT2. This extends the Contracts NFTokenMetadata and
 // Ownable
-contract ourNFT is NFTokenMetadata, Ownable {
+contract ourNFT2 is NFTokenMetadata, Ownable {
  
   // This is the constructor of the Smart Contract. This is called when we deploy the Smart
-  // Contract. It sets the name of the NFT to "Catto", and the Symbol to "NYC"
+  // Contract. It sets the name of the NFT to "CattoNFT", and the Symbol to "NYC"
   // Catto - because the picture is of a cute catto
   // NYC - because I clicked this photo on New Year's, and this is a Catto
   constructor() {
-    nftName = "Catto";
+    nftName = "CattoNFT";
     nftSymbol = "NYC";
   }
  
