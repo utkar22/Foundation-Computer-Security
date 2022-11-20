@@ -2,7 +2,8 @@
 // This is a pragma directive that tells the compiler to use solidity versions 0.8.6 or higher
 pragma solidity 0.8.6;
 
-// I import the 0xcert/ethereum-erc721 contracts.  
+// I import the 0xcert/ethereum-erc721 contracts.
+// For this assignment,  I have used the ERC 721 standard.  
 import "https://github.com/0xcert/ethereum-erc721/src/contracts/tokens/nf-token-metadata.sol";
 import "https://github.com/0xcert/ethereum-erc721/src/contracts/ownership/ownable.sol";
 
@@ -12,14 +13,22 @@ import "https://github.com/0xcert/ethereum-erc721/src/contracts/ownership/ownabl
 contract ourNFT is NFTokenMetadata, Ownable {
  
   // This is the constructor of the Smart Contract. This is called when we deploy the Smart
-  // Contract. It sets the name of the NFT to "Synth NFT", and the Symbol to "SYN"
+  // Contract. It sets the name of the NFT to "Catto", and the Symbol to "NYC"
+  // Catto - because the picture is of a cute catto
+  // NYC - because I clicked this photo on New Year's, and this is a Catto
   constructor() {
-    nftName = "Synth NFT";
-    nftSymbol = "SYN";
+    nftName = "Catto";
+    nftSymbol = "NYC";
   }
  
-  function mint(address minter_address, uint256 token_id, string calldata uri) external onlyOwner {
+  // This function mints the NFT.
+  // minter_address- this is the address of the metamask wallet who is minting the NFT
+  // 
+  function mint_nft(address minter_address, uint256 token_id, string calldata uri) external onlyOwner {
+    //This function mints the NFT on the blockchain
     super._mint(minter_address, token_id);
+    //This function connects the blockchain with the uri of the image. The image is hosted
+    // outside the blockchain, on IPFS
     super._setTokenUri(token_id, uri);
   }
  
